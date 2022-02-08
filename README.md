@@ -12,7 +12,7 @@ Have you ever wanted to travel to a destination but did not feel comfortable cho
 
 ## Technologies Used
 This project is made with:
-* PostGres
+* PostgreSQL
 * Django
 * React
 
@@ -34,10 +34,10 @@ This project is made with:
   <img src="ERD.png" />
 </details>
 
-### Future Updates
+
+## Future Updates
 - [ ] Trends
 - [ ] Follow
 
 
-
-### Credits
+## Credits
