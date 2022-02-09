@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react"
 
 function PictureCard() {
-  return <div></div>;
+  return <div></div>
 }
 
-export default PictureCard;
+export default PictureCard
