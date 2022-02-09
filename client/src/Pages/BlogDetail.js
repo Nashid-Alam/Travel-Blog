@@ -7,30 +7,38 @@ import PictureCard from "../components/PictureCard"
 const BASE_URL = process.env.REACT_APP_BASE_URL
 
 function Blogdetail(props) {
-  const [BlogDetail, setBlogDetail] = useState([])
   const blog_id = props.match.params.post_id
-  console.log(props)
+
+  const [blogDetail, setBlogDetail] = useState({})
+  const [pictures, setPictures] = useState([])
+  const [discussions, setDiscussions] = useState([])
 
   const getBlogInfo = async () => {
     const response = await axios.get(`${BASE_URL}/blog-api/posts/${blog_id}`)
     setBlogDetail(response.data)
+    if (blogDetail !== "") {
+      setPictures(response.data.pictures)
+      setDiscussions(response.data.discussions)
+    }
   }
 
   useEffect(() => {
     getBlogInfo()
   }, [])
-  console.log(BlogDetail)
+
   return (
     <div>
-      <BlogDetailCard key={BlogDetail.id} blog={BlogDetail} />
+      <BlogDetailCard blog={blogDetail} />
+      <h1>Pictures</h1>
+      {pictures.map((picture) => {
+        return <PictureCard picture={picture} />
+      })}
 
-<PictureCard key={BlogDetail.id} Picture={BlogDetail.pictures} />
-
-       <DiscussionCard
-        key={BlogDetail.id}
-        discussion={BlogDetail.discussions}
-      />  
-    </div> 
+      <h1>Discussions</h1>
+      {discussions.map((discussion) => {
+        return <DiscussionCard discussion={discussion} />
+      })}
+    </div>
   )
 }
 

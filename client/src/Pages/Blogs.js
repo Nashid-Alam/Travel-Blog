@@ -19,8 +19,6 @@ function Blogs(props) {
     getCityInfo()
   }, [])
 
-  console.log(blogs)
-
   return (
     <div>
       <h1>List of Blogs in {city.name}</h1>
