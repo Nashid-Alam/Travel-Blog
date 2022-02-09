@@ -3,15 +3,19 @@ from .models import City, Discussion, Do, Picture, Place, Post
 
 
 class PostSerializer(serializers.ModelSerializer):
+    # city = serializers.ReadOnlyField(source='city.name')
+    # country = serializers.ReadOnlyField(source='city.country')
     class Meta:
         model = Post
         fields = '__all__'
 
 
 class CitySerializer(serializers.ModelSerializer):
+    posts = PostSerializer(read_only=True, many=True)
+    
     class Meta:
         model = City
-        fields = '__all__'
+        fields = ['id', 'name', 'country', 'posts']
 
 
 class DiscussionSerializer(serializers.ModelSerializer):
