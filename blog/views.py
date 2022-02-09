@@ -1,5 +1,5 @@
 from rest_framework import generics
-from .serializers import CitySerializer, PostSerializer, DiscussionSerializer, DoSerializer, PictureSerializer, PlaceSerializer
+from .serializers import CitySerializer, PostSerializer, PostDetailSerializer, DiscussionSerializer, DoSerializer, PictureSerializer, PlaceSerializer
 from . import models
 
 
@@ -10,7 +10,7 @@ class PostList(generics.ListCreateAPIView):
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Post.objects.all()
-    serializer_class = PostSerializer
+    serializer_class = PostDetailSerializer
 
 
 class DiscussionList(generics.ListCreateAPIView):
