@@ -1,6 +1,7 @@
 import React from "react"
 
-function Blogs() {
+function Blogs(props) {
+
   return <div>blos</div>
 }
 

@@ -1,28 +1,13 @@
 import React, { useEffect, useState } from "react"
 import CityCard from "../components/CityCard"
+import axios from "axios"
 
 function Cities(props) {
   const [cities, setCities] = useState([])
 
-  const getAllCities = () => {
-    const response = [
-      {
-        _id: "1",
-        name: "New York",
-        country: "United States",
-      },
-      {
-        _id: "2",
-        name: "San Francisco",
-        country: "United States",
-      },
-      {
-        _id: "3",
-        name: "Miami",
-        country: "United States",
-      },
-    ]
-    setCities(response)
+  const getAllCities = async () => {
+    const response = await axios.get("http://localhost:8000/blog-api/cities/")
+    setCities(response.data)
   }
 
   useEffect(() => {
@@ -34,9 +19,9 @@ function Cities(props) {
       {cities.map((city) => {
         return (
           <CityCard
-            onClick={() => props.history.push(`/blogs/${city._id}`)}
-            key={city._id}
+            key={city.id}
             city={city}
+            onClick={() => props.history.push(`/blogs/${city.id}`)}
           />
         )
       })}
