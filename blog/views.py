@@ -1,6 +1,15 @@
 from rest_framework import generics
-from .serializers import CitySerializer, PostSerializer, PostDetailSerializer, DiscussionSerializer, DoSerializer, PictureSerializer, PlaceSerializer
+from django.contrib.auth.models import User
 from . import models
+from .serializers import (
+    CitySerializer,
+    PostSerializer,
+    PostDetailSerializer,
+    DiscussionSerializer,
+    DoSerializer,
+    PictureSerializer,
+    PlaceSerializer,
+)
 
 
 class PostList(generics.ListCreateAPIView):
@@ -16,6 +25,11 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
 class DiscussionList(generics.ListCreateAPIView):
     queryset = models.Discussion.objects.all()
     serializer_class = DiscussionSerializer
+
+    def perform_create(self, serializer):
+        owner = User.objects.get(pk=self.request.data.get("owner"))
+        post = models.Post.objects.get(pk=self.request.data.get("post"))
+        serializer.save(owner=owner, post=post)
 
 
 class DiscussionDetail(generics.RetrieveUpdateDestroyAPIView):

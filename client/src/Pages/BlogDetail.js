@@ -3,23 +3,22 @@ import axios from "axios"
 import BlogDetailCard from "../components/BlogDetailCard"
 import DiscussionCard from "../components/DiscussionCard"
 import PictureCard from "../components/PictureCard"
+import DiscussionPost from "../components/DiscussionPost"
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
 
 function Blogdetail(props) {
-  const blog_id = props.match.params.post_id
+  const blogId = props.match.params.post_id
 
   const [blogDetail, setBlogDetail] = useState({})
   const [pictures, setPictures] = useState([])
   const [discussions, setDiscussions] = useState([])
 
   const getBlogInfo = async () => {
-    const response = await axios.get(`${BASE_URL}/blog-api/posts/${blog_id}`)
+    const response = await axios.get(`${BASE_URL}/blog-api/posts/${blogId}`)
     setBlogDetail(response.data)
-    if (blogDetail !== "") {
-      setPictures(response.data.pictures)
-      setDiscussions(response.data.discussions)
-    }
+    setPictures(response.data.pictures)
+    setDiscussions(response.data.discussions)
   }
 
   useEffect(() => {
@@ -30,6 +29,7 @@ function Blogdetail(props) {
     <div>
       <BlogDetailCard blog={blogDetail} />
       <h1>Pictures</h1>
+
       {pictures.map((picture) => {
         return <PictureCard picture={picture} />
       })}
@@ -38,6 +38,7 @@ function Blogdetail(props) {
       {discussions.map((discussion) => {
         return <DiscussionCard discussion={discussion} />
       })}
+      <DiscussionPost blogId={blogId} />
     </div>
   )
 }
